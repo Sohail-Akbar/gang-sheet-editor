@@ -1,0 +1,1003 @@
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+
+    <link rel="stylesheet" href="css/196.css">
+    <link rel="stylesheet" href="./css/custom.css">
+
+    <title>Build a Gang Sheet</title>
+
+    <script>
+        window.appEnv = "production"
+    </script>
+
+    <style>
+        @media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 600px) {
+
+            select:focus,
+            textarea:focus,
+            input:focus {
+                font-size: 16px !important;
+            }
+        }
+
+        :root {
+            --gs-builder-bg-color: #ffffff;
+            --gs-builder-fg-color: #33333;
+            --gs-builder-btn-bg-color: #121212;
+            --gs-builder-btn-fg-color: #ffffff;
+            --gs-builder-side-bar-bg-color: #ffffff;
+            --gs-builder-top-bar-bg-color: #ffffff;
+        }
+
+        html,
+        body,
+        #app {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background-color: var(--gs-builder-bg-color, '#ffffff');
+            color: var(--gs-builder-fg-color, '#555555');
+        }
+
+        #app {
+            background-image: url("images/spinner.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+
+    <script type="text/javascript">
+        const Ziggy = { "url": "https:\/\/app.dripappsserver.com", "port": null, "defaults": {}, "routes": { "shopify.webhook": { "uri": "webhook\/{type}", "methods": ["POST"], "parameters": ["type"] }, "shopify.home": { "uri": "shopify", "methods": ["GET", "HEAD"] }, "shopify.authenticate": { "uri": "shopify\/authenticate", "methods": ["GET", "POST", "HEAD"] }, "shopify.authenticate.token": { "uri": "shopify\/authenticate\/token", "methods": ["GET", "HEAD"] }, "shopify.billing": { "uri": "shopify\/billing\/{plan?}", "methods": ["GET", "HEAD"], "wheres": { "plan": "^([0-9]+|)$" }, "parameters": ["plan"] }, "shopify.billing.process": { "uri": "shopify\/billing\/process\/{plan?}", "methods": ["GET", "HEAD"], "wheres": { "plan": "^([0-9]+|)$" }, "parameters": ["plan"] }, "shopify.billing.usage_charge": { "uri": "shopify\/billing\/usage-charge", "methods": ["GET", "POST", "HEAD"] }, "sanctum.csrf-cookie": { "uri": "sanctum\/csrf-cookie", "methods": ["GET", "HEAD"] }, "ignition.healthCheck": { "uri": "_ignition\/health-check", "methods": ["GET", "HEAD"] }, "ignition.executeSolution": { "uri": "_ignition\/execute-solution", "methods": ["POST"] }, "ignition.updateConfig": { "uri": "_ignition\/update-config", "methods": ["POST"] }, "home": { "uri": "\/", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "asset.image": { "uri": "assets\/images\/{image_name}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["image_name"] }, "asset.thumb-image": { "uri": "assets\/thumbs\/{image_name}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["image_name"] }, "assets.gallery": { "uri": "assets\/gallery\/{user_id}\/{image_name}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["user_id", "image_name"] }, "shopify.block": { "uri": "shopify\/block", "methods": ["GET", "HEAD"] }, "shopify.cap-amount": { "uri": "shopify\/cap-amount", "methods": ["GET", "HEAD"] }, "shopify.cap-amount-update": { "uri": "shopify\/cap-amount", "methods": ["POST"] }, "shopify.upload-image": { "uri": "shopify\/upload-image", "methods": ["POST"] }, "shopify.general.index": { "uri": "shopify\/general", "methods": ["GET", "HEAD"] }, "shopify.general.diagnose": { "uri": "shopify\/general\/diagnose", "methods": ["GET", "HEAD"] }, "shopify.general.save": { "uri": "shopify\/general", "methods": ["POST"] }, "shopify.general.check-watermark-opacity-status": { "uri": "shopify\/general\/check-watermark-opacity-status", "methods": ["GET", "HEAD"] }, "shopify.general.apply-watermark-opacity": { "uri": "shopify\/general\/apply-watermark-opacity", "methods": ["POST"] }, "shopify.general.revoke-google-drive": { "uri": "shopify\/general\/revoke-google-drive", "methods": ["POST"] }, "shopify.general.dropbox": { "uri": "shopify\/general\/dropbox", "methods": ["GET", "HEAD"] }, "shopify.general.revoke-dropbox": { "uri": "shopify\/general\/dropbox\/revoke", "methods": ["POST"] }, "shopify.product.index": { "uri": "shopify\/products", "methods": ["GET", "HEAD"] }, "shopify.product.create": { "uri": "shopify\/products\/create", "methods": ["GET", "HEAD"] }, "shopify.product.detail": { "uri": "shopify\/products\/detail\/{id}", "methods": ["GET", "HEAD"], "parameters": ["id"] }, "shopify.product.save": { "uri": "shopify\/products\/save", "methods": ["POST"] }, "shopify.product.convert": { "uri": "shopify\/products\/convert", "methods": ["GET", "HEAD"] }, "shopify.order.index": { "uri": "shopify\/orders", "methods": ["GET", "HEAD"] }, "shopify.order.download": { "uri": "shopify\/orders\/download", "methods": ["GET", "HEAD"] }, "shopify.order.design-status": { "uri": "shopify\/orders\/design-status\/{design_id}", "methods": ["GET", "HEAD"], "parameters": ["design_id"] }, "shopify.order.design-rebuild": { "uri": "shopify\/orders\/design-rebuild\/{design_id}", "methods": ["POST"], "parameters": ["design_id"] }, "shopify.design.index": { "uri": "shopify\/designs", "methods": ["GET", "HEAD"] }, "shopify.design.status": { "uri": "shopify\/designs\/status\/{design}", "methods": ["GET", "HEAD"], "parameters": ["design"], "bindings": { "design": "id" } }, "shopify.design.generate": { "uri": "shopify\/designs\/generate\/{design_id}", "methods": ["POST"], "parameters": ["design_id"] }, "shopify.design.search": { "uri": "shopify\/designs\/search", "methods": ["GET", "HEAD"] }, "shopify.design.get": { "uri": "shopify\/designs\/get\/{design}", "methods": ["GET", "HEAD"], "parameters": ["design"], "bindings": { "design": "id" } }, "shopify.design.images": { "uri": "shopify\/designs\/images\/{design}", "methods": ["GET", "HEAD"], "parameters": ["design"], "bindings": { "design": "id" } }, "shopify.image.index": { "uri": "shopify\/images", "methods": ["GET", "HEAD"] }, "shopify.image.add-tags": { "uri": "shopify\/images\/add-tags", "methods": ["POST"] }, "shopify.image.remove-tags": { "uri": "shopify\/images\/remove-tags", "methods": ["POST"] }, "shopify.image.upload": { "uri": "shopify\/images\/upload", "methods": ["POST"] }, "shopify.image.update-title": { "uri": "shopify\/images\/update\/{image_id}", "methods": ["PUT"], "parameters": ["image_id"] }, "shopify.image.generate-watermark": { "uri": "shopify\/images\/generate-watermark", "methods": ["POST"] }, "shopify.image.update": { "uri": "shopify\/images\/update", "methods": ["POST"] }, "shopify.image.delete": { "uri": "shopify\/images\/delete", "methods": ["POST"] }, "shopify.image.category.create": { "uri": "shopify\/images\/category\/create", "methods": ["POST"] }, "shopify.image.category.update": { "uri": "shopify\/images\/category\/update\/{category_id}", "methods": ["PUT"], "parameters": ["category_id"] }, "shopify.image.category.delete": { "uri": "shopify\/images\/category\/{category_id}", "methods": ["DELETE"], "parameters": ["category_id"] }, "shopify.image.category.reorder": { "uri": "shopify\/images\/category\/reorder", "methods": ["POST"] }, "shopify.image.category.images": { "uri": "shopify\/images\/category\/images", "methods": ["GET", "HEAD"] }, "shopify.image.search": { "uri": "shopify\/images\/search", "methods": ["GET", "HEAD"] }, "shopify.image.reload": { "uri": "shopify\/images\/reload", "methods": ["GET", "HEAD"] }, "shopify.image.gallery.get": { "uri": "shopify\/images\/gallery", "methods": ["GET", "HEAD"] }, "shopify.image.tags.get": { "uri": "shopify\/images\/tags", "methods": ["GET", "HEAD"] }, "shopify.image.move": { "uri": "shopify\/images\/move", "methods": ["POST"] }, "shopify.image.update-status": { "uri": "shopify\/images\/update-status", "methods": ["POST"] }, "shopify.image.tag.create": { "uri": "shopify\/images\/tag", "methods": ["POST"] }, "shopify.image.tag.images": { "uri": "shopify\/images\/tag\/images", "methods": ["GET", "HEAD"] }, "shopify.image.tag.delete": { "uri": "shopify\/images\/tags", "methods": ["POST"] }, "shopify.font.index": { "uri": "shopify\/fonts", "methods": ["GET", "HEAD"] }, "shopify.font.store": { "uri": "shopify\/fonts", "methods": ["POST"] }, "shopify.font.add": { "uri": "shopify\/fonts\/add", "methods": ["GET", "HEAD"] }, "shopify.font.delete": { "uri": "shopify\/fonts\/delete", "methods": ["POST"] }, "shopify.font.default": { "uri": "shopify\/fonts\/default", "methods": ["POST"] }, "shopify.transaction.index": { "uri": "shopify\/transactions", "methods": ["GET", "HEAD"] }, "shopify.transaction.get-chat-data": { "uri": "shopify\/transactions\/chat-data", "methods": ["GET", "HEAD"] }, "shopify.transaction.get-table-data": { "uri": "shopify\/transactions\/table-data", "methods": ["GET", "HEAD"] }, "shopify.support.index": { "uri": "shopify\/support", "methods": ["GET", "HEAD"] }, "shopify.webhook.app-uninstalled": { "uri": "shopify\/webhook\/app-uninstalled", "methods": ["POST"] }, "shopify.webhook.order-created": { "uri": "shopify\/webhook\/order-created", "methods": ["POST"] }, "shopify.webhook.order-fulfilled": { "uri": "shopify\/webhook\/order-fulfilled", "methods": ["POST"] }, "shopify.webhook.customers-data-request": { "uri": "shopify\/webhook\/customers-data-request", "methods": ["POST"] }, "shopify.webhook.customers-redact": { "uri": "shopify\/webhook\/customers-redact", "methods": ["POST"] }, "shopify.webhook.shop-redact": { "uri": "shopify\/webhook\/shop-redact", "methods": ["POST"] }, "shopify.webhook.subscription-updated": { "uri": "shopify\/webhook\/subscription-updated", "methods": ["POST"] }, "shopify.script.edit": { "uri": "shopify\/script\/edit", "methods": ["GET", "HEAD"] }, "shopify.script.builder-button": { "uri": "shopify\/script\/builder-button", "methods": ["GET", "HEAD"] }, "shopify.google-auth.success": { "uri": "shopify\/google-auth\/success", "methods": ["GET", "HEAD"] }, "shopify.dropbox-auth.success": { "uri": "shopify\/dropbox-auth\/success", "methods": ["GET", "HEAD"] }, "shopify.gang.all": { "uri": "shopify\/gang\/all", "methods": ["GET", "HEAD"] }, "shopify.gang.upload": { "uri": "shopify\/gang\/upload", "methods": ["POST"] }, "shopify.gang.upload-chunk": { "uri": "shopify\/gang\/upload-chunk", "methods": ["POST"] }, "shopify.gang.get": { "uri": "shopify\/gang\/uploads\/{file_name}", "methods": ["GET", "HEAD"], "parameters": ["file_name"] }, "shopify.order.detail": { "uri": "shopify\/order\/detail\/{order_id}", "methods": ["GET", "HEAD"], "parameters": ["order_id"] }, "shopify.settings": { "uri": "shopify\/settings", "methods": ["GET", "HEAD"] }, "builder.home": { "uri": "builder", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.edit": { "uri": "builder\/edit", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.view": { "uri": "builder\/view\/{design_id}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["design_id"] }, "builder.delete-design": { "uri": "builder\/design\/{design}", "methods": ["DELETE"], "domain": "app.dripappsserver.com", "parameters": ["design"], "bindings": { "design": "id" } }, "builder.restore-design": { "uri": "builder\/design\/restore\/{design_id}", "methods": ["POST"], "domain": "app.dripappsserver.com", "parameters": ["design_id"] }, "builder.upload-image": { "uri": "builder\/upload-image", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.upload-canva-image": { "uri": "builder\/upload-canva-image", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.save-design": { "uri": "builder\/save-design", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.save-direct": { "uri": "builder\/save-direct", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.save-draft-design": { "uri": "builder\/save-draft-design", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.report": { "uri": "builder\/report", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.send-edit-request": { "uri": "builder\/send-edit-request\/{order}", "methods": ["POST"], "domain": "app.dripappsserver.com", "parameters": ["order"], "bindings": { "order": "id" } }, "builder.approve-edit-request": { "uri": "builder\/approve-edit-request\/{order}", "methods": ["POST"], "domain": "app.dripappsserver.com", "parameters": ["order"], "bindings": { "order": "id" } }, "builder.decline-edit-request": { "uri": "builder\/decline-edit-request\/{order}", "methods": ["POST"], "domain": "app.dripappsserver.com", "parameters": ["order"], "bindings": { "order": "id" } }, "builder.trim-image": { "uri": "builder\/trim-image", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.upload-base64": { "uri": "builder\/upload-base64", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.shop-design": { "uri": "builder\/shop\/design\/{design}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["design"], "bindings": { "design": "id" } }, "builder.shop-images": { "uri": "builder\/shop\/images", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.shop-image-categories": { "uri": "builder\/shop\/image-categories", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.customer-designs": { "uri": "builder\/customer\/designs", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.customer-images": { "uri": "builder\/customer\/images", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.delete-customer-images": { "uri": "builder\/customer\/images", "methods": ["DELETE"], "domain": "app.dripappsserver.com" }, "builder.delete-customer-design": { "uri": "builder\/customer\/design\/{design}", "methods": ["DELETE"], "domain": "app.dripappsserver.com", "parameters": ["design"], "bindings": { "design": "id" } }, "builder.get-customer": { "uri": "builder\/customer\/me\/{customer_id}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["customer_id"] }, "builder.get-customer-session": { "uri": "builder\/customer\/session\/{session_id}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["session_id"] }, "builder.customer-canva-designs": { "uri": "builder\/customer\/canva-designs", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" }, "builder.auto-nest": { "uri": "builder\/auto-nest", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.contour": { "uri": "builder\/contour", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "builder.remove-background": { "uri": "builder\/remove-background", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "gang-sheet-image": { "uri": "gang-sheet-image\/{design_id}\/{file_name?}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["design_id", "file_name"] }, "get-design-image": { "uri": "uploads\/{fileName}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["fileName"] }, "get-preview-image": { "uri": "preview\/{file_name}", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com", "parameters": ["file_name"] }, "canva-auth.authorize-url": { "uri": "canva-auth\/authorize-url", "methods": ["POST"], "domain": "app.dripappsserver.com" }, "canva-auth.success": { "uri": "canva-auth\/success", "methods": ["GET", "HEAD"], "domain": "app.dripappsserver.com" } } };
+
+        !function (t, r) { "object" == typeof exports && "undefined" != typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define(r) : (t || self).route = r() }(this, function () { function t(t, r) { for (var e = 0; e < r.length; e++) { var n = r[e]; n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, "symbol" == typeof (o = function (t, r) { if ("object" != typeof t || null === t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var n = e.call(t, "string"); if ("object" != typeof n) return n; throw new TypeError("@@toPrimitive must return a primitive value.") } return String(t) }(n.key)) ? o : String(o), n) } var o } function r(r, e, n) { return e && t(r.prototype, e), n && t(r, n), Object.defineProperty(r, "prototype", { writable: !1 }), r } function e() { return e = Object.assign ? Object.assign.bind() : function (t) { for (var r = 1; r < arguments.length; r++) { var e = arguments[r]; for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && (t[n] = e[n]) } return t }, e.apply(this, arguments) } function n(t) { return n = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t) }, n(t) } function o(t, r) { return o = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, r) { return t.__proto__ = r, t }, o(t, r) } function i(t, r, e) { return i = function () { if ("undefined" == typeof Reflect || !Reflect.construct) return !1; if (Reflect.construct.sham) return !1; if ("function" == typeof Proxy) return !0; try { return Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () { })), !0 } catch (t) { return !1 } }() ? Reflect.construct.bind() : function (t, r, e) { var n = [null]; n.push.apply(n, r); var i = new (Function.bind.apply(t, n)); return e && o(i, e.prototype), i }, i.apply(null, arguments) } function u(t) { var r = "function" == typeof Map ? new Map : void 0; return u = function (t) { if (null === t || -1 === Function.toString.call(t).indexOf("[native code]")) return t; if ("function" != typeof t) throw new TypeError("Super expression must either be null or a function"); if (void 0 !== r) { if (r.has(t)) return r.get(t); r.set(t, e) } function e() { return i(t, arguments, n(this).constructor) } return e.prototype = Object.create(t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), o(e, t) }, u(t) } var f = String.prototype.replace, a = /%20/g, c = "RFC3986", l = { default: c, formatters: { RFC1738: function (t) { return f.call(t, a, "+") }, RFC3986: function (t) { return String(t) } }, RFC1738: "RFC1738", RFC3986: c }, s = Object.prototype.hasOwnProperty, v = Array.isArray, p = function () { for (var t = [], r = 0; r < 256; ++r)t.push("%" + ((r < 16 ? "0" : "") + r.toString(16)).toUpperCase()); return t }(), y = function (t, r) { for (var e = r && r.plainObjects ? Object.create(null) : {}, n = 0; n < t.length; ++n)void 0 !== t[n] && (e[n] = t[n]); return e }, d = { arrayToObject: y, assign: function (t, r) { return Object.keys(r).reduce(function (t, e) { return t[e] = r[e], t }, t) }, combine: function (t, r) { return [].concat(t, r) }, compact: function (t) { for (var r = [{ obj: { o: t }, prop: "o" }], e = [], n = 0; n < r.length; ++n)for (var o = r[n], i = o.obj[o.prop], u = Object.keys(i), f = 0; f < u.length; ++f) { var a = u[f], c = i[a]; "object" == typeof c && null !== c && -1 === e.indexOf(c) && (r.push({ obj: i, prop: a }), e.push(c)) } return function (t) { for (; t.length > 1;) { var r = t.pop(), e = r.obj[r.prop]; if (v(e)) { for (var n = [], o = 0; o < e.length; ++o)void 0 !== e[o] && n.push(e[o]); r.obj[r.prop] = n } } }(r), t }, decode: function (t, r, e) { var n = t.replace(/\+/g, " "); if ("iso-8859-1" === e) return n.replace(/%[0-9a-f]{2}/gi, unescape); try { return decodeURIComponent(n) } catch (t) { return n } }, encode: function (t, r, e, n, o) { if (0 === t.length) return t; var i = t; if ("symbol" == typeof t ? i = Symbol.prototype.toString.call(t) : "string" != typeof t && (i = String(t)), "iso-8859-1" === e) return escape(i).replace(/%u[0-9a-f]{4}/gi, function (t) { return "%26%23" + parseInt(t.slice(2), 16) + "%3B" }); for (var u = "", f = 0; f < i.length; ++f) { var a = i.charCodeAt(f); 45 === a || 46 === a || 95 === a || 126 === a || a >= 48 && a <= 57 || a >= 65 && a <= 90 || a >= 97 && a <= 122 || o === l.RFC1738 && (40 === a || 41 === a) ? u += i.charAt(f) : a < 128 ? u += p[a] : a < 2048 ? u += p[192 | a >> 6] + p[128 | 63 & a] : a < 55296 || a >= 57344 ? u += p[224 | a >> 12] + p[128 | a >> 6 & 63] + p[128 | 63 & a] : (a = 65536 + ((1023 & a) << 10 | 1023 & i.charCodeAt(f += 1)), u += p[240 | a >> 18] + p[128 | a >> 12 & 63] + p[128 | a >> 6 & 63] + p[128 | 63 & a]) } return u }, isBuffer: function (t) { return !(!t || "object" != typeof t || !(t.constructor && t.constructor.isBuffer && t.constructor.isBuffer(t))) }, isRegExp: function (t) { return "[object RegExp]" === Object.prototype.toString.call(t) }, maybeMap: function (t, r) { if (v(t)) { for (var e = [], n = 0; n < t.length; n += 1)e.push(r(t[n])); return e } return r(t) }, merge: function t(r, e, n) { if (!e) return r; if ("object" != typeof e) { if (v(r)) r.push(e); else { if (!r || "object" != typeof r) return [r, e]; (n && (n.plainObjects || n.allowPrototypes) || !s.call(Object.prototype, e)) && (r[e] = !0) } return r } if (!r || "object" != typeof r) return [r].concat(e); var o = r; return v(r) && !v(e) && (o = y(r, n)), v(r) && v(e) ? (e.forEach(function (e, o) { if (s.call(r, o)) { var i = r[o]; i && "object" == typeof i && e && "object" == typeof e ? r[o] = t(i, e, n) : r.push(e) } else r[o] = e }), r) : Object.keys(e).reduce(function (r, o) { var i = e[o]; return r[o] = s.call(r, o) ? t(r[o], i, n) : i, r }, o) } }, b = Object.prototype.hasOwnProperty, h = { brackets: function (t) { return t + "[]" }, comma: "comma", indices: function (t, r) { return t + "[" + r + "]" }, repeat: function (t) { return t } }, g = Array.isArray, m = String.prototype.split, j = Array.prototype.push, w = function (t, r) { j.apply(t, g(r) ? r : [r]) }, O = Date.prototype.toISOString, E = l.default, R = { addQueryPrefix: !1, allowDots: !1, charset: "utf-8", charsetSentinel: !1, delimiter: "&", encode: !0, encoder: d.encode, encodeValuesOnly: !1, format: E, formatter: l.formatters[E], indices: !1, serializeDate: function (t) { return O.call(t) }, skipNulls: !1, strictNullHandling: !1 }, S = function t(r, e, n, o, i, u, f, a, c, l, s, v, p, y) { var b, h = r; if ("function" == typeof f ? h = f(e, h) : h instanceof Date ? h = l(h) : "comma" === n && g(h) && (h = d.maybeMap(h, function (t) { return t instanceof Date ? l(t) : t })), null === h) { if (o) return u && !p ? u(e, R.encoder, y, "key", s) : e; h = "" } if ("string" == typeof (b = h) || "number" == typeof b || "boolean" == typeof b || "symbol" == typeof b || "bigint" == typeof b || d.isBuffer(h)) { if (u) { var j = p ? e : u(e, R.encoder, y, "key", s); if ("comma" === n && p) { for (var O = m.call(String(h), ","), E = "", S = 0; S < O.length; ++S)E += (0 === S ? "" : ",") + v(u(O[S], R.encoder, y, "value", s)); return [v(j) + "=" + E] } return [v(j) + "=" + v(u(h, R.encoder, y, "value", s))] } return [v(e) + "=" + v(String(h))] } var T, k = []; if (void 0 === h) return k; if ("comma" === n && g(h)) T = [{ value: h.length > 0 ? h.join(",") || null : void 0 }]; else if (g(f)) T = f; else { var x = Object.keys(h); T = a ? x.sort(a) : x } for (var N = 0; N < T.length; ++N) { var C = T[N], A = "object" == typeof C && void 0 !== C.value ? C.value : h[C]; if (!i || null !== A) { var D = g(h) ? "function" == typeof n ? n(e, C) : e : e + (c ? "." + C : "[" + C + "]"); w(k, t(A, D, n, o, i, u, f, a, c, l, s, v, p, y)) } } return k }, T = Object.prototype.hasOwnProperty, k = Array.isArray, x = { allowDots: !1, allowPrototypes: !1, arrayLimit: 20, charset: "utf-8", charsetSentinel: !1, comma: !1, decoder: d.decode, delimiter: "&", depth: 5, ignoreQueryPrefix: !1, interpretNumericEntities: !1, parameterLimit: 1e3, parseArrays: !0, plainObjects: !1, strictNullHandling: !1 }, N = function (t) { return t.replace(/&#(\d+);/g, function (t, r) { return String.fromCharCode(parseInt(r, 10)) }) }, C = function (t, r) { return t && "string" == typeof t && r.comma && t.indexOf(",") > -1 ? t.split(",") : t }, A = function (t, r, e, n) { if (t) { var o = e.allowDots ? t.replace(/\.([^.[]+)/g, "[$1]") : t, i = /(\[[^[\]]*])/g, u = e.depth > 0 && /(\[[^[\]]*])/.exec(o), f = u ? o.slice(0, u.index) : o, a = []; if (f) { if (!e.plainObjects && T.call(Object.prototype, f) && !e.allowPrototypes) return; a.push(f) } for (var c = 0; e.depth > 0 && null !== (u = i.exec(o)) && c < e.depth;) { if (c += 1, !e.plainObjects && T.call(Object.prototype, u[1].slice(1, -1)) && !e.allowPrototypes) return; a.push(u[1]) } return u && a.push("[" + o.slice(u.index) + "]"), function (t, r, e, n) { for (var o = n ? r : C(r, e), i = t.length - 1; i >= 0; --i) { var u, f = t[i]; if ("[]" === f && e.parseArrays) u = [].concat(o); else { u = e.plainObjects ? Object.create(null) : {}; var a = "[" === f.charAt(0) && "]" === f.charAt(f.length - 1) ? f.slice(1, -1) : f, c = parseInt(a, 10); e.parseArrays || "" !== a ? !isNaN(c) && f !== a && String(c) === a && c >= 0 && e.parseArrays && c <= e.arrayLimit ? (u = [])[c] = o : "__proto__" !== a && (u[a] = o) : u = { 0: o } } o = u } return o }(a, r, e, n) } }, D = function (t, r) { var e = function (t) { if (!t) return x; if (null != t.decoder && "function" != typeof t.decoder) throw new TypeError("Decoder has to be a function."); if (void 0 !== t.charset && "utf-8" !== t.charset && "iso-8859-1" !== t.charset) throw new TypeError("The charset option must be either utf-8, iso-8859-1, or undefined"); return { allowDots: void 0 === t.allowDots ? x.allowDots : !!t.allowDots, allowPrototypes: "boolean" == typeof t.allowPrototypes ? t.allowPrototypes : x.allowPrototypes, arrayLimit: "number" == typeof t.arrayLimit ? t.arrayLimit : x.arrayLimit, charset: void 0 === t.charset ? x.charset : t.charset, charsetSentinel: "boolean" == typeof t.charsetSentinel ? t.charsetSentinel : x.charsetSentinel, comma: "boolean" == typeof t.comma ? t.comma : x.comma, decoder: "function" == typeof t.decoder ? t.decoder : x.decoder, delimiter: "string" == typeof t.delimiter || d.isRegExp(t.delimiter) ? t.delimiter : x.delimiter, depth: "number" == typeof t.depth || !1 === t.depth ? +t.depth : x.depth, ignoreQueryPrefix: !0 === t.ignoreQueryPrefix, interpretNumericEntities: "boolean" == typeof t.interpretNumericEntities ? t.interpretNumericEntities : x.interpretNumericEntities, parameterLimit: "number" == typeof t.parameterLimit ? t.parameterLimit : x.parameterLimit, parseArrays: !1 !== t.parseArrays, plainObjects: "boolean" == typeof t.plainObjects ? t.plainObjects : x.plainObjects, strictNullHandling: "boolean" == typeof t.strictNullHandling ? t.strictNullHandling : x.strictNullHandling } }(r); if ("" === t || null == t) return e.plainObjects ? Object.create(null) : {}; for (var n = "string" == typeof t ? function (t, r) { var e, n = {}, o = (r.ignoreQueryPrefix ? t.replace(/^\?/, "") : t).split(r.delimiter, Infinity === r.parameterLimit ? void 0 : r.parameterLimit), i = -1, u = r.charset; if (r.charsetSentinel) for (e = 0; e < o.length; ++e)0 === o[e].indexOf("utf8=") && ("utf8=%E2%9C%93" === o[e] ? u = "utf-8" : "utf8=%26%2310003%3B" === o[e] && (u = "iso-8859-1"), i = e, e = o.length); for (e = 0; e < o.length; ++e)if (e !== i) { var f, a, c = o[e], l = c.indexOf("]="), s = -1 === l ? c.indexOf("=") : l + 1; -1 === s ? (f = r.decoder(c, x.decoder, u, "key"), a = r.strictNullHandling ? null : "") : (f = r.decoder(c.slice(0, s), x.decoder, u, "key"), a = d.maybeMap(C(c.slice(s + 1), r), function (t) { return r.decoder(t, x.decoder, u, "value") })), a && r.interpretNumericEntities && "iso-8859-1" === u && (a = N(a)), c.indexOf("[]=") > -1 && (a = k(a) ? [a] : a), n[f] = T.call(n, f) ? d.combine(n[f], a) : a } return n }(t, e) : t, o = e.plainObjects ? Object.create(null) : {}, i = Object.keys(n), u = 0; u < i.length; ++u) { var f = i[u], a = A(f, n[f], e, "string" == typeof t); o = d.merge(o, a, e) } return d.compact(o) }, $ =/*#__PURE__*/function () { function t(t, r, e) { var n, o; this.name = t, this.definition = r, this.bindings = null != (n = r.bindings) ? n : {}, this.wheres = null != (o = r.wheres) ? o : {}, this.config = e } var e = t.prototype; return e.matchesUrl = function (t) { var r = this; if (!this.definition.methods.includes("GET")) return !1; var e = this.template.replace(/(\/?){([^}?]*)(\??)}/g, function (t, e, n, o) { var i, u = "(?<" + n + ">" + ((null == (i = r.wheres[n]) ? void 0 : i.replace(/(^\^)|(\$$)/g, "")) || "[^/?]+") + ")"; return o ? "(" + e + u + ")?" : "" + e + u }).replace(/^\w+:\/\//, ""), n = t.replace(/^\w+:\/\//, "").split("?"), o = n[0], i = n[1], u = new RegExp("^" + e + "/?$").exec(decodeURI(o)); if (u) { for (var f in u.groups) u.groups[f] = "string" == typeof u.groups[f] ? decodeURIComponent(u.groups[f]) : u.groups[f]; return { params: u.groups, query: D(i) } } return !1 }, e.compile = function (t) { var r = this; return this.parameterSegments.length ? this.template.replace(/{([^}?]+)(\??)}/g, function (e, n, o) { var i, u; if (!o && [null, void 0].includes(t[n])) throw new Error("Ziggy error: '" + n + "' parameter is required for route '" + r.name + "'."); if (r.wheres[n] && !new RegExp("^" + (o ? "(" + r.wheres[n] + ")?" : r.wheres[n]) + "$").test(null != (u = t[n]) ? u : "")) throw new Error("Ziggy error: '" + n + "' parameter does not match required format '" + r.wheres[n] + "' for route '" + r.name + "'."); return encodeURI(null != (i = t[n]) ? i : "").replace(/%7C/g, "|").replace(/%25/g, "%").replace(/\$/g, "%24") }).replace(this.origin + "//", this.origin + "/").replace(/\/+$/, "") : this.template }, r(t, [{ key: "template", get: function () { var t = (this.origin + "/" + this.definition.uri).replace(/\/+$/, ""); return "" === t ? "/" : t } }, { key: "origin", get: function () { return this.config.absolute ? this.definition.domain ? "" + this.config.url.match(/^\w+:\/\//)[0] + this.definition.domain + (this.config.port ? ":" + this.config.port : "") : this.config.url : "" } }, { key: "parameterSegments", get: function () { var t, r; return null != (t = null == (r = this.template.match(/{[^}?]+\??}/g)) ? void 0 : r.map(function (t) { return { name: t.replace(/{|\??}/g, ""), required: !/\?}$/.test(t) } })) ? t : [] } }]), t }(), F =/*#__PURE__*/function (t) { var n, i; function u(r, n, o, i) { var u; if (void 0 === o && (o = !0), (u = t.call(this) || this).t = null != i ? i : "undefined" != typeof Ziggy ? Ziggy : null == globalThis ? void 0 : globalThis.Ziggy, u.t = e({}, u.t, { absolute: o }), r) { if (!u.t.routes[r]) throw new Error("Ziggy error: route '" + r + "' is not in the route list."); u.i = new $(r, u.t.routes[r], u.t), u.u = u.l(n) } return u } i = t, (n = u).prototype = Object.create(i.prototype), n.prototype.constructor = n, o(n, i); var f = u.prototype; return f.toString = function () { var t = this, r = Object.keys(this.u).filter(function (r) { return !t.i.parameterSegments.some(function (t) { return t.name === r }) }).filter(function (t) { return "_query" !== t }).reduce(function (r, n) { var o; return e({}, r, ((o = {})[n] = t.u[n], o)) }, {}); return this.i.compile(this.u) + function (t, r) { var e, n = t, o = function (t) { if (!t) return R; if (null != t.encoder && "function" != typeof t.encoder) throw new TypeError("Encoder has to be a function."); var r = t.charset || R.charset; if (void 0 !== t.charset && "utf-8" !== t.charset && "iso-8859-1" !== t.charset) throw new TypeError("The charset option must be either utf-8, iso-8859-1, or undefined"); var e = l.default; if (void 0 !== t.format) { if (!b.call(l.formatters, t.format)) throw new TypeError("Unknown format option provided."); e = t.format } var n = l.formatters[e], o = R.filter; return ("function" == typeof t.filter || g(t.filter)) && (o = t.filter), { addQueryPrefix: "boolean" == typeof t.addQueryPrefix ? t.addQueryPrefix : R.addQueryPrefix, allowDots: void 0 === t.allowDots ? R.allowDots : !!t.allowDots, charset: r, charsetSentinel: "boolean" == typeof t.charsetSentinel ? t.charsetSentinel : R.charsetSentinel, delimiter: void 0 === t.delimiter ? R.delimiter : t.delimiter, encode: "boolean" == typeof t.encode ? t.encode : R.encode, encoder: "function" == typeof t.encoder ? t.encoder : R.encoder, encodeValuesOnly: "boolean" == typeof t.encodeValuesOnly ? t.encodeValuesOnly : R.encodeValuesOnly, filter: o, format: e, formatter: n, serializeDate: "function" == typeof t.serializeDate ? t.serializeDate : R.serializeDate, skipNulls: "boolean" == typeof t.skipNulls ? t.skipNulls : R.skipNulls, sort: "function" == typeof t.sort ? t.sort : null, strictNullHandling: "boolean" == typeof t.strictNullHandling ? t.strictNullHandling : R.strictNullHandling } }(r); "function" == typeof o.filter ? n = (0, o.filter)("", n) : g(o.filter) && (e = o.filter); var i = []; if ("object" != typeof n || null === n) return ""; var u = h[r && r.arrayFormat in h ? r.arrayFormat : r && "indices" in r ? r.indices ? "indices" : "repeat" : "indices"]; e || (e = Object.keys(n)), o.sort && e.sort(o.sort); for (var f = 0; f < e.length; ++f) { var a = e[f]; o.skipNulls && null === n[a] || w(i, S(n[a], a, u, o.strictNullHandling, o.skipNulls, o.encode ? o.encoder : null, o.filter, o.sort, o.allowDots, o.serializeDate, o.format, o.formatter, o.encodeValuesOnly, o.charset)) } var c = i.join(o.delimiter), s = !0 === o.addQueryPrefix ? "?" : ""; return o.charsetSentinel && (s += "iso-8859-1" === o.charset ? "utf8=%26%2310003%3B&" : "utf8=%E2%9C%93&"), c.length > 0 ? s + c : "" }(e({}, r, this.u._query), { addQueryPrefix: !0, arrayFormat: "indices", encodeValuesOnly: !0, skipNulls: !0, encoder: function (t, r) { return "boolean" == typeof t ? Number(t) : r(t) } }) }, f.v = function (t) { var r = this; t ? this.t.absolute && t.startsWith("/") && (t = this.p().host + t) : t = this.h(); var n = {}, o = Object.entries(this.t.routes).find(function (e) { return n = new $(e[0], e[1], r.t).matchesUrl(t) }) || [void 0, void 0]; return e({ name: o[0] }, n, { route: o[1] }) }, f.h = function () { var t = this.p(), r = t.pathname, e = t.search; return (this.t.absolute ? t.host + r : r.replace(this.t.url.replace(/^\w*:\/\/[^/]+/, ""), "").replace(/^\/+/, "/")) + e }, f.current = function (t, r) { var n = this.v(), o = n.name, i = n.params, u = n.query, f = n.route; if (!t) return o; var a = new RegExp("^" + t.replace(/\./g, "\\.").replace(/\*/g, ".*") + "$").test(o); if ([null, void 0].includes(r) || !a) return a; var c = new $(o, f, this.t); r = this.l(r, c); var l = e({}, i, u); return !(!Object.values(r).every(function (t) { return !t }) || Object.values(l).some(function (t) { return void 0 !== t })) || function t(r, e) { return Object.entries(r).every(function (r) { var n = r[0], o = r[1]; return Array.isArray(o) && Array.isArray(e[n]) ? o.every(function (t) { return e[n].includes(t) }) : "object" == typeof o && "object" == typeof e[n] && null !== o && null !== e[n] ? t(o, e[n]) : e[n] == o }) }(r, l) }, f.p = function () { var t, r, e, n, o, i, u = "undefined" != typeof window ? window.location : {}, f = u.host, a = u.pathname, c = u.search; return { host: null != (t = null == (r = this.t.location) ? void 0 : r.host) ? t : void 0 === f ? "" : f, pathname: null != (e = null == (n = this.t.location) ? void 0 : n.pathname) ? e : void 0 === a ? "" : a, search: null != (o = null == (i = this.t.location) ? void 0 : i.search) ? o : void 0 === c ? "" : c } }, f.has = function (t) { return Object.keys(this.t.routes).includes(t) }, f.l = function (t, r) { var n = this; void 0 === t && (t = {}), void 0 === r && (r = this.i), null != t || (t = {}), t = ["string", "number"].includes(typeof t) ? [t] : t; var o = r.parameterSegments.filter(function (t) { return !n.t.defaults[t.name] }); if (Array.isArray(t)) t = t.reduce(function (t, r, n) { var i, u; return e({}, t, o[n] ? ((i = {})[o[n].name] = r, i) : "object" == typeof r ? r : ((u = {})[r] = "", u)) }, {}); else if (1 === o.length && !t[o[0].name] && (t.hasOwnProperty(Object.values(r.bindings)[0]) || t.hasOwnProperty("id"))) { var i; (i = {})[o[0].name] = t, t = i } return e({}, this.g(r), this.m(t, r)) }, f.g = function (t) { var r = this; return t.parameterSegments.filter(function (t) { return r.t.defaults[t.name] }).reduce(function (t, n, o) { var i, u = n.name; return e({}, t, ((i = {})[u] = r.t.defaults[u], i)) }, {}) }, f.m = function (t, r) { var n = r.bindings, o = r.parameterSegments; return Object.entries(t).reduce(function (t, r) { var i, u, f = r[0], a = r[1]; if (!a || "object" != typeof a || Array.isArray(a) || !o.some(function (t) { return t.name === f })) return e({}, t, ((u = {})[f] = a, u)); if (!a.hasOwnProperty(n[f])) { if (!a.hasOwnProperty("id")) throw new Error("Ziggy error: object passed as '" + f + "' parameter is missing route model binding key '" + n[f] + "'."); n[f] = "id" } return e({}, t, ((i = {})[f] = a[n[f]], i)) }, {}) }, f.valueOf = function () { return this.toString() }, f.check = function (t) { return this.has(t) }, r(u, [{ key: "params", get: function () { var t = this.v(); return e({}, t.params, t.query) } }]), u }(/*#__PURE__*/u(String)); return function (t, r, e, n) { var o = new F(t, r, e, n); return t ? o.toString() : o } });
+
+    </script>
+    <link rel="preload" as="style" href="css/vue-c1664b49.css">
+    <link rel="preload" as="style" href="css/vuex-a6135838.css">
+    <link rel="preload" as="style" href="css/design-e9b6ce95.css">
+    <link rel="stylesheet" href="css/design-e9b6ce95.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="app" data-v-app="">
+        <div class="flex flex-col h-full w-full text-inherit" style="user-select: none;">
+            <div class="h-[60px] shrink-0 border-b w-full z-30">
+                <div class="flex max-xl:justify-between h-full">
+                    <div class="max-md:hidden flex items-center truncate border-r px-2" style="width: 320px;">
+                        <div class="flex w-full items-center justify-between h-full"><img class="h-10 object-contain"
+                                src="https://images.dripappsserver.com/production/logos/196/vEUlMTi7XYtlOgkftdQZ3xIlZC1HQLnWaCoHbMil.png"
+                                alt="App Logo">
+                        </div>
+                    </div>
+                    <div class="flex-1 flex items-center justify-between px-2 md:px-5">
+                        <div class="flex items-center space-x-2">
+                            <div
+                                class="flex items-center justify-between mr-4 max-xs:text-xs text-sm max-sm:ml-2 max-sm:mr-2">
+                                <label class="mr-2 max-lg:hidden">Quantity: </label><label class="mr-2 sm:hidden">Qty:
+                                </label><input type="number" step="1" min="1" class="w-16 inp-builder">
+                            </div>
+                            <!----><button
+                                class="btn-builder whitespace-nowrap py-2 px-4 flex items-center text-sm max-sm:ml-1 max-sm:px-2"><!---->
+                                Save &amp; Add to Cart</button><button
+                                class="btn-builder max-lg:hidden py-2 px-4 text-white rounded ml-2 text-sm max-sm:ml-1 max-sm:px-2">Save</button><!----><!---->
+                        </div>
+                        <div class="flex items-center">
+                            <div class="gs-chat-button cursor-pointer w-max sm:mr-5">
+                                <div class="flex"><svg viewBox="0 0 24 24" class="w-6">
+                                        <path
+                                            d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4v1h-7v2h6c1.66 0 3-1.34 3-3V10c0-4.97-4.03-9-9-9">
+                                        </path>
+                                    </svg>
+                                    <div class="flex ml-1 flex-col relative h-full max-lg:hidden"><b
+                                            class="text-red-500 pb-2">Need Help ?</b>
+                                        <div
+                                            class="text-xs flex items-center text-gray-500 absolute bottom-[-4px] left-0">
+                                            <span class="relative flex h-1.5 w-1.5 mr-1"><span
+                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-500 opacity-75"></span><span
+                                                    class="relative inline-flex rounded-full h-1.5 w-1.5 bg-teal-500"></span></span>
+                                            Chat Now
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-full max-sm:hidden flex items-center"><!---->
+                                <div class="flex h-full items-center">
+                                    <div data-headlessui-state="" class="relative inline-block text-left w-full">
+                                        <div class="flex items-center space-x-1"><button id="headlessui-menu-button-8"
+                                                type="button" aria-haspopup="menu" aria-expanded="false"
+                                                data-headlessui-state="">
+                                                <div
+                                                    class="w-full flex justify-between items-center border rounded py-1 px-2">
+                                                    <div
+                                                        class="flex justify-center items-center bg-gray-100 rounded-full h-10 w-10 font-bold">
+                                                        <span>UN</span>
+                                                    </div>
+                                                    <div class="flex items-start flex-col text-xs ml-2">
+                                                        <div class="leading-0 w-20 text-left">Unknown</div>
+                                                        <div
+                                                            class="leading-0 text-2xs text-blue-500 underline hover:text-blue-600">
+                                                            Sign In</div>
+                                                    </div>
+                                                    <div class="flex items-center justify-center ml-2"><span
+                                                            class="transition-all"><svg data-v-76aa6b74="" width="20"
+                                                                height="20" viewBox="0 0 24 24"
+                                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                                <path data-v-76aa6b74=""
+                                                                    d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z">
+                                                                </path>
+                                                            </svg></span></div>
+                                                </div>
+                                            </button></div><!---->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 h-1">
+                <div data-v-d25070c3="" class="w-full h-full relative focus-visible:outline-0" tabindex="0"><input
+                        data-v-d25070c3="" type="file" hidden="" multiple=""
+                        accept="image/*,.psd,application/pdf,application/postscript"
+                        style="width: 0px !important; display: none;" autocomplete="off" tabindex="-1">
+                    <div class="flex flex-col h-full w-full">
+                        <div class="flex flex-1 h-1 w-full md:flex-row max-md:flex-col-reverse">
+                            <div data-v-dd8d0c5c="" class="max-md:w-full md:max-w-max">
+                                <div data-v-dd8d0c5c=""
+                                    class="md:hidden max-md:w-full flex items-center justify-around shadow z-10 border-t">
+                                    <div data-v-dd8d0c5c="" class="tool"><svg data-v-76aa6b74="" data-v-dd8d0c5c=""
+                                            width="16" height="16" viewBox="0 0 24 24"
+                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                            <path data-v-76aa6b74=""
+                                                d="M13.64,21.97C13.14,22.21 12.54,22 12.31,21.5L10.13,16.76L7.62,18.78C7.45,18.92 7.24,19 7,19A1,1 0 0,1 6,18V3A1,1 0 0,1 7,2C7.24,2 7.47,2.09 7.64,2.23L7.65,2.22L19.14,11.86C19.57,12.22 19.62,12.85 19.27,13.27C19.12,13.45 18.91,13.57 18.7,13.61L15.54,14.23L17.74,18.96C18,19.46 17.76,20.05 17.26,20.28L13.64,21.97Z">
+                                            </path>
+                                        </svg><small data-v-dd8d0c5c="" class="text-xs">Select</small></div>
+                                    <div data-v-dd8d0c5c="" class="tool"><svg data-v-76aa6b74="" data-v-dd8d0c5c=""
+                                            width="16" height="16" viewBox="0 0 24 24"
+                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                            <path data-v-76aa6b74=""
+                                                d="M11 20H6.5Q4.22 20 2.61 18.43 1 16.85 1 14.58 1 12.63 2.17 11.1 3.35 9.57 5.25 9.15 5.88 6.85 7.75 5.43 9.63 4 12 4 14.93 4 16.96 6.04 19 8.07 19 11 20.73 11.2 21.86 12.5 23 13.78 23 15.5 23 17.38 21.69 18.69 20.38 20 18.5 20H13V12.85L14.6 14.4L16 13L12 9L8 13L9.4 14.4L11 12.85Z">
+                                            </path>
+                                        </svg><small data-v-dd8d0c5c="" class="text-xs">Add Image</small></div>
+                                </div>
+                                <div data-v-dd8d0c5c="" class="flex h-full max-md:hidden"><!---->
+                                    <div data-v-dd8d0c5c=""
+                                        class="flex flex-col left-0 w-[320px] h-full bg-builder max-xl:pt-[50px] border-r overflow-y-auto">
+                                        <div data-v-dd8d0c5c=""
+                                            class="w-full h-full p-2 overflow-y-auto tiny-scroll-bar flex flex-col">
+                                            <div class="max-md:h-full w-full flex flex-col"><label tabindex="0"
+                                                    id="file-drop-area"
+                                                    class="max-sm:h-36 h-28 xl:h-32 border border-dashed rounded drop-area flex relative cursor-pointer upload-image">
+                                                    <div class="w-full h-full flex justify-center items-center"><input
+                                                            id="image-picker"
+                                                            accept=".png, .jpg, .jpeg, .svg, .pdf, .ai, .cdr, .psd, .eps"
+                                                            multiple="" type="file" autocomplete="off" tabindex="-1"
+                                                            hidden="" style="display: none;">
+                                                        <div class="h-full w-full flex justify-center items-center">
+                                                            <div
+                                                                class="text-center px-4 flex flex-col items-center text-sm">
+                                                                <span class="border-0">Drag &amp; drop a file here, or
+                                                                    click to</span>
+                                                                <div
+                                                                    class="btn-builder flex mt-2 items-center justify-around px-3 xl:py-1 text-xs xl:text-sm w-max">
+                                                                    <svg data-v-76aa6b74="" width="20" height="20"
+                                                                        viewBox="0 0 24 24" class="mr-1"
+                                                                        style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                                        <path data-v-76aa6b74=""
+                                                                            d="M6.5 20Q4.22 20 2.61 18.43 1 16.85 1 14.58 1 12.63 2.17 11.1 3.35 9.57 5.25 9.15 5.88 6.85 7.75 5.43 9.63 4 12 4 14.93 4 16.96 6.04 19 8.07 19 11 20.73 11.2 21.86 12.5 23 13.78 23 15.5 23 17.38 21.69 18.69 20.38 20 18.5 20H13Q12.18 20 11.59 19.41 11 18.83 11 18V12.85L9.4 14.4L8 13L12 9L16 13L14.6 14.4L13 12.85V18H18.5Q19.55 18 20.27 17.27 21 16.55 21 15.5 21 14.45 20.27 13.73 19.55 13 18.5 13H17V11Q17 8.93 15.54 7.46 14.08 6 12 6 9.93 6 8.46 7.46 7 8.93 7 11H6.5Q5.05 11 4.03 12.03 3 13.05 3 14.5 3 15.95 4.03 17 5.05 18 6.5 18H9V20M12 13Z">
+                                                                        </path>
+                                                                    </svg> Upload Image(s)
+                                                                </div><small class="text-gray-400 mt-2">Upload images
+                                                                    larger than
+                                                                    300 x 300px. <br> Supported formats: png, psd, ai,
+                                                                    eps, pdf, jpg</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                                <div class="mt-2 flex items-center space-x-1"><button
+                                                        class="btn-builder flex-1 h-full flex items-center justify-center w-full px-1 py-1.5 mx-auto text-sm"><svg
+                                                            data-v-76aa6b74="" width="18" height="18"
+                                                            viewBox="0 0 24 24" class="mr-1"
+                                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z">
+                                                            </path>
+                                                        </svg> From My Images</button><button
+                                                        class="btn-builder flex flex-1 h-full items-center justify-center w-full rounded px-1 py-1.5 mx-auto text-sm"><svg
+                                                            data-v-76aa6b74="" width="18" height="18"
+                                                            viewBox="0 0 24 24" class="mr-1"
+                                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z">
+                                                            </path>
+                                                        </svg> From Gallery</button></div>
+                                                <div class="max-md:flex-1 max-md:h-1 overflow-hidden">
+                                                    <div
+                                                        class="grid grid-cols-4 mt-2 gap-2 max-h-full md:max-h-[150px] xl:max-h-[220px] overflow-y-auto tiny-scroll-bar file-container">
+                                                        <div
+                                                            class="aspect-square flex text-center flex-col items-center justify-center border cursor-pointer add-text">
+                                                            <svg data-v-76aa6b74="" width="24" height="24"
+                                                                viewBox="0 0 24 24"
+                                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                                <path data-v-76aa6b74=""
+                                                                    d="M18.5,4L19.66,8.35L18.7,8.61C18.25,7.74 17.79,6.87 17.26,6.43C16.73,6 16.11,6 15.5,6H13V16.5C13,17 13,17.5 13.33,17.75C13.67,18 14.33,18 15,18V19H9V18C9.67,18 10.33,18 10.67,17.75C11,17.5 11,17 11,16.5V6H8.5C7.89,6 7.27,6 6.74,6.43C6.21,6.87 5.75,7.74 5.3,8.61L4.34,8.35L5.5,4H18.5Z">
+                                                                </path>
+                                                            </svg><small>Add Text</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-2">
+                                            <div class="w-full h-full relative">
+                                                <div class="flex items-center justify-center flex-col pt-8"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="170" height="167"
+                                                        viewBox="0 0 170 167" fill="none" class="ml-8">
+                                                        <rect x="1" y="1" width="129" height="129" rx="4"
+                                                            stroke="#E7E7EC" stroke-width="2"></rect>
+                                                        <path
+                                                            d="M97.0143 94.0143L116.054 145.083L121.845 124.336L137.737 140.227L143.227 134.737L127.336 118.845L148.083 113.054L97.0143 94.0143Z"
+                                                            stroke="white" stroke-width="19" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                        <path
+                                                            d="M97.0143 94.0143L116.054 145.083L121.845 124.336L137.737 140.227L143.227 134.737L127.336 118.845L148.083 113.054L97.0143 94.0143Z"
+                                                            stroke="#E7E7EC" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </svg>
+                                                    <p>Select an object to edit.</p>
+                                                </div>
+                                                <div class="absolute bottom-0 w-full text-xs max-md:hidden"> Powered by
+                                                    <a href="https://www.thedripapps.com" target="_blank"
+                                                        class="text-blue-500">Drip Apps</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col z-10 bg-builder flex-1 w-full max-md:h-1 md:w-1 relative"><!---->
+                                <div
+                                    class="max-sm:hidden absolute top-[60px] w-[300px] z-50 left-[calc(50%-150px)] text-xs space-y-1">
+                                    <!----><!---->
+                                </div>
+                                <div class="absolute max-xs:left-6 left-8 max-xs:bottom-6 bottom-8 z-30 flex space-x-2">
+                                    <div class="cursor-pointer btn-builder px-0 py-0 rounded-full shadow-lg w-8 h-8">
+                                        <svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24" class=""
+                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                            <path data-v-76aa6b74=""
+                                                d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z">
+                                            </path>
+                                        </svg>
+                                    </div><button class="btn-builder btn-sm text-xs">Auto Build</button>
+                                </div>
+                                <div class="w-full relative h-[40px] z-50">
+                                    <div
+                                        class="absolute max-md:left-0 max-md:w-full left-[-320px] xl:left-0 md:w-[calc(100%+320px)] h-full xl:w-full flex items-center bg-builder border-b">
+                                        <div class="p-1.5 w-42 shrink-0">
+                                            <div class="w-full choose-variant">
+                                                <div data-headlessui-state=""
+                                                    class="relative inline-block text-left w-full h-full">
+                                                    <div class="h-full w-full d-none"><button
+                                                            id="headlessui-menu-button-1" type="button"
+                                                            aria-haspopup="menu" aria-expanded="false"
+                                                            data-headlessui-state=""
+                                                            class="w-full min-w-[100px] justify-between gap-x-1.5 h-full flex items-center rounded-md px-3 py-1 text-sm shadow-sm ring-1 ring-inset ring-gray-300">22in
+                                                            X 24in <svg data-v-76aa6b74="" width="16" height="16"
+                                                                viewBox="0 0 24 24"
+                                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                                <path data-v-76aa6b74=""
+                                                                    d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z">
+                                                                </path>
+                                                            </svg></button></div><!---->
+                                                    <select aria-labelledby="headlessui-menu-button-10"
+                                                        id="headlessui-menu-items-11"
+                                                        class="w-56 origin-top-right rounded-md bg-builder shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                        <option value="22x24-standard">22 in X 24 in (2 ft) / Standard
+                                                        </option>
+                                                        <option value="22x24-glitter" selected>22 in X 24 in (2 ft) /
+                                                            Glitter</option>
+                                                        <option value="22x24-glow">22 in X 24 in (2 ft) / Glow in the
+                                                            Dark</option>
+
+                                                        <option value="22x60-standard">22 in X 60 in (5 ft) / Standard
+                                                        </option>
+                                                        <option value="22x60-glitter">22 in X 60 in (5 ft) / Glitter
+                                                        </option>
+                                                        <option value="22x60-glow">22 in X 60 in (5 ft) / Glow in the
+                                                            Dark</option>
+
+                                                        <option value="22x84-standard">22 in X 84 in (7 ft) / Standard
+                                                        </option>
+                                                        <option value="22x84-glitter">22 in X 84 in (7 ft) / Glitter
+                                                        </option>
+                                                        <option value="22x84-glow">22 in X 84 in (7 ft) / Glow in the
+                                                            Dark</option>
+
+                                                        <option value="22x120-standard">22 in X 120 in (10 ft) /
+                                                            Standard</option>
+                                                        <option value="22x120-glitter">22 in X 120 in (10 ft) / Glitter
+                                                        </option>
+                                                        <option value="22x120-glow">22 in X 120 in (10 ft) / Glow in the
+                                                            Dark</option>
+
+                                                        <option value="22x180-standard">22 in X 180 in (15 ft) /
+                                                            Standard</option>
+                                                        <option value="22x180-glitter">22 in X 180 in (15 ft) / Glitter
+                                                        </option>
+                                                        <option value="22x180-glow">22 in X 180 in (15 ft) / Glow in the
+                                                            Dark</option>
+
+                                                        <option value="22x240-standard">22 in X 240 in (20 ft) /
+                                                            Standard</option>
+                                                        <option value="22x240-glitter">22 in X 240 in (20 ft) / Glitter
+                                                        </option>
+                                                        <option value="22x240-glow">22 in X 240 in (20 ft) / Glow in the
+                                                            Dark</option>
+
+                                                        <option value="22x360-standard">22 in x 360 in (30 ft) /
+                                                            Standard</option>
+                                                        <option value="22x360-glitter">22 in x 360 in (30 ft) / Glitter
+                                                        </option>
+                                                        <option value="22x360-glow">22 in x 360 in (30 ft) / Glow in the
+                                                            Dark</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-1 w-1">
+                                            <div class="min-h-[40px] flex items-center">
+                                                <div class="border-l-2 px-1 h-full flex items-center ml-2"><button
+                                                        title="Undo (Ctrl+Z)" disabled=""
+                                                        class="w-6 h-6 border rounded flex items-center justify-center cursor-pointer active:bg-white active:text-info active:border active:border-info disabled:border-none disabled:text-gray-400"><svg
+                                                            data-v-76aa6b74="" width="18" height="18"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M12.5,8C9.85,8 7.45,9 5.6,10.6L2,7V16H11L7.38,12.38C8.77,11.22 10.54,10.5 12.5,10.5C16.04,10.5 19.05,12.81 20.1,16L22.47,15.22C21.08,11.03 17.15,8 12.5,8Z">
+                                                            </path>
+                                                        </svg></button><button title="Redo (Ctrl+Y)" disabled=""
+                                                        class="w-6 h-6 border rounded flex items-center justify-center cursor-pointer ml-2 active:bg-white active:text-info active:border active:border-info disabled:border-none disabled:text-gray-400"><svg
+                                                            data-v-76aa6b74="" width="18" height="18"
+                                                            viewBox="0 0 24 24" class=""
+                                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M18.4,10.6C16.55,9 14.15,8 11.5,8C6.85,8 2.92,11.03 1.54,15.22L3.9,16C4.95,12.81 7.95,10.5 11.5,10.5C13.45,10.5 15.23,11.22 16.62,12.38L13,16H22V7L18.4,10.6Z">
+                                                            </path>
+                                                        </svg></button><button title="Save"
+                                                        class="hidden items-center justify-center cursor-pointer ml-2 text-danger text-sm font-medium whitespace-nowrap">
+                                                        Delete All </button></div>
+                                                <div class="border-l-2 px-1 h-full flex items-center"><button
+                                                        title="Move mode"
+                                                        class="w-6 h-6 border rounded flex items-center justify-center cursor-pointer"><svg
+                                                            data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" class=""
+                                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M3 16C3 20.42 6.58 24 11 24C14.43 24 17.5 21.91 18.77 18.73L21.33 12.3C21.58 11.66 21.56 10.92 21.18 10.35C20.69 9.61 19.82 9.29 19 9.5L18.22 9.73C17.76 9.85 17.34 10.08 17 10.39V4.5C17 3.12 15.88 2 14.5 2C14.31 2 14.13 2 13.96 2.06C13.75 .89 12.73 0 11.5 0C10.44 0 9.54 .66 9.17 1.59C8.96 1.53 8.73 1.5 8.5 1.5C7.12 1.5 6 2.62 6 4V4.55C5.84 4.5 5.67 4.5 5.5 4.5C4.12 4.5 3 5.62 3 7V16M5 7C5 6.72 5.22 6.5 5.5 6.5S6 6.72 6 7V12H8V4C8 3.72 8.22 3.5 8.5 3.5S9 3.72 9 4V12H11V2.5C11 2.22 11.22 2 11.5 2S12 2.22 12 2.5V12H14V4.5C14 4.22 14.22 4 14.5 4S15 4.22 15 4.5V15H17L18 12.5C18.15 12.05 18.5 11.71 19 11.59L19.5 11.45L16.91 18C15.95 20.41 13.61 22 11 22C7.69 22 5 19.31 5 16V7Z">
+                                                            </path>
+                                                        </svg></button><button title="Grid view"
+                                                        class="w-6 h-6 border max-sm:hidden rounded flex items-center justify-center cursor-pointer ml-2"><svg
+                                                            data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" class=""
+                                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M10,4V8H14V4H10M16,4V8H20V4H16M16,10V14H20V10H16M16,16V20H20V16H16M14,20V16H10V20H14M8,20V16H4V20H8M8,14V10H4V14H8M8,8V4H4V8H8M10,14H14V10H10V14M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4C2.92,22 2,21.1 2,20V4A2,2 0 0,1 4,2Z">
+                                                            </path>
+                                                        </svg></button></div>
+                                                <div class="max-lg:hidden border-l-2 px-1 h-full flex items-center">
+                                                    <div class="flex items-center cursor-pointer"><label
+                                                            class="text-sm flex items-center"><input
+                                                                id="margin-checkbox" type="checkbox"
+                                                                class="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2">
+                                                            Image Margin</label><input type="number" step="0.1" min="0"
+                                                            class="h-6 rounded border w-14 pr-0 ml-2 pl-1 border-gray-300"><span
+                                                            class="ml-1">in</span></div>
+                                                </div>
+                                            </div><!---->
+                                            <div class="max-md:hidden overflow-x-auto object-action-buttons">
+                                                <div class="border-l-2 h-[40px] px-1 flex items-center">
+                                                    <button title="Duplicate (Ctrl+D)"
+                                                        class="w-6 h-6 rounded duplicate-obj-btn items-center justify-center cursor-pointer text-info border hover:text-white hover:bg-info"><svg
+                                                            data-v-76aa6b74="" width="18" height="18"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M11,17H4A2,2 0 0,1 2,15V3A2,2 0 0,1 4,1H16V3H4V15H11V13L15,16L11,19V17M19,21V7H8V13H6V7A2,2 0 0,1 8,5H19A2,2 0 0,1 21,7V21A2,2 0 0,1 19,23H8A2,2 0 0,1 6,21V19H8V21H19Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Rotate 90 degrees CCW" data-type="left"
+                                                        class="w-6 h-6 rounded rotate-obj-btn shrink-0 flex items-center justify-center cursor-pointer text-info border hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M4 11C4 6.58 7.58 3 12 3L13 3.06V5.08L12 5C8.69 5 6 7.69 6 11H9L5 15L1 11H4M17 7H13C11.9 7 11 7.9 11 9V18C11 19.11 11.9 20 13 20H19C20.11 20 21 19.11 21 18V11L17 7M19 18H13V9H16V12H19V18Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Rotate 90 degrees CW" data-type="right"
+                                                        class="w-6 h-6 rounded rotate-obj-btn flex shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M20 11H23L19 15L15 11H18C18 7.69 15.31 5 12 5L11 5.08V3.06L12 3C16.42 3 20 6.58 20 11M9 7H5C3.9 7 3 7.9 3 9V18C3 19.11 3.9 20 5 20H11C12.11 20 13 19.11 13 18V11L9 7M11 18H5V9H8V12H11V18Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Horizontal stretch" data-type="x"
+                                                        class="w-6 h-6 rounded flip-obj flex shrink-0 items-center justify-center cursor-pointer text-info border ml-2 hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M9,11H15V8L19,12L15,16V13H9V16L5,12L9,8V11M2,20V4H4V20H2M20,20V4H22V20H20Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Vertical stretch" data-type="y"
+                                                        class="w-6 h-6 rounded flip-obj flex shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M13,9V15H16L12,19L8,15H11V9H8L12,5L16,9H13M4,2H20V4H4V2M4,20H20V22H4V20Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Horizontal center"
+                                                        class="w-6 h-6 rounded flex d-none shrink-0 items-center justify-center cursor-pointer text-info border ml-2 hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M19,16V13H23V11H19V8L15,12L19,16M5,8V11H1V13H5V16L9,12L5,8M11,20H13V4H11V20Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Vertical center"
+                                                        class="w-6 h-6 rounded flex d-none shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M8,19H11V23H13V19H16L12,15L8,19M16,5H13V1H11V5H8L12,9L16,5M4,11V13H20V11H4Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Center in art board"
+                                                        class="w-6 h-6 rounded d-none flex shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M17 12C17 7.55 11.62 5.31 8.46 8.46C5.31 11.61 7.55 17 12 17C14.76 17 17 14.76 17 12M12 15C9.33 15 8 11.77 9.88 9.88C11.77 8 15 9.33 15 12C15 13.66 13.66 15 12 15M5 15H3V19C3 20.1 3.9 21 5 21H9V19H5M5 5H9V3H5C3.9 3 3 3.9 3 5V9H5M19 3H15V5H19V9H21V5C21 3.9 20.1 3 19 3M19 19H15V21H19C20.1 21 21 20.1 21 19V15H19">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Snap to left"
+                                                        class="w-6 h-6 rounded d-none flex shrink-0 items-center justify-center cursor-pointer text-info border ml-2 hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M4 22H2V2H4V22M22 7H6V10H22V7M16 14H6V17H16V14Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Snap to right"
+                                                        class="w-6 h-6 rounded d-none flex shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M20 2H22V22H20V2M2 10H18V7H2V10M8 17H18V14H8V17Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Snap to top"
+                                                        class="w-6 h-6 rounded d-none flex shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M22 2V4H2V2H22M7 22H10V6H7V22M14 16H17V6H14V16Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Snap to bottom"
+                                                        class="w-6 h-6 rounded d-none flex shrink-0 items-center justify-center cursor-pointer text-info border ml-px hover:text-white hover:bg-info">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M22 22H2V20H22V22M10 2H7V18H10V2M17 8H14V18H17V8Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Remove Background"
+                                                        class="w-6 h-6 hidden rounded flex shrink-0 items-center justify-center cursor-pointer text-info border ml-2 hover:text-white hover:bg-info disabled:text-gray-400 disabled:border-none disabled:border">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M19 3A3 3 0 0 0 16.61 4.21A11.5 11.5 0 0 0 13.75 4L13.88 6A9.47 9.47 0 0 1 16 6.13A3 3 0 1 0 19 3M19 7A1 1 0 1 1 20 6A1 1 0 0 1 19 7M8.86 7.86L7.67 6.25A11.5 11.5 0 0 1 11.6 4.37L12.1 6.31A9.5 9.5 0 0 0 8.86 7.86M21 18A3 3 0 1 1 15.69 16.11A9.47 9.47 0 0 0 8.59 13.46C8.37 13.47 8.16 13.5 7.94 13.54A3 3 0 1 1 4.39 10.06A11.54 11.54 0 0 1 6.04 7.7L7.5 9.06A9.34 9.34 0 0 0 6.5 10.41A3.04 3.04 0 0 1 7.62 11.56C7.91 11.5 8.19 11.5 8.5 11.46A11.47 11.47 0 0 1 17.46 15.05A2.96 2.96 0 0 1 18 15A3 3 0 0 1 21 18Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Download image"
+                                                        class="w-6 h-6 hidden rounded flex shrink-0 items-center justify-center cursor-pointer text-info border ml-1">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M13,5V11H14.17L12,13.17L9.83,11H11V5H13M15,3H9V9H5L12,16L19,9H15V3M19,18H5V20H19V18Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <button title="Selectie resetten"
+                                                        class="w-6 h-6 hidden max-sm:hidden rounded flex shrink-0 items-center justify-center cursor-pointer text-danger border ml-4 hover:text-white hover:bg-danger"><svg
+                                                            data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+                                                    <div title="Delete (Ctrl+X)"
+                                                        class="w-6 h-6 rounded flex delete-obj-btn shrink-0 items-center justify-center cursor-pointer text-danger border ml-px hover:text-white hover:bg-danger">
+                                                        <svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ml-auto h-[40px] flex items-center justify-center">
+                                            <div data-headlessui-state=""
+                                                class="relative inline-block text-left w-full"><button
+                                                    id="headlessui-menu-button-6" type="button" aria-haspopup="menu"
+                                                    aria-expanded="false" data-headlessui-state=""
+                                                    class="flex w-full items-center justify-center px-3 py-1"><svg
+                                                        data-v-76aa6b74="" width="16" height="16" viewBox="0 0 24 24"
+                                                        style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                        <path data-v-76aa6b74=""
+                                                            d="M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M10,22C9.75,22 9.54,21.82 9.5,21.58L9.13,18.93C8.5,18.68 7.96,18.34 7.44,17.94L4.95,18.95C4.73,19.03 4.46,18.95 4.34,18.73L2.34,15.27C2.21,15.05 2.27,14.78 2.46,14.63L4.57,12.97L4.5,12L4.57,11L2.46,9.37C2.27,9.22 2.21,8.95 2.34,8.73L4.34,5.27C4.46,5.05 4.73,4.96 4.95,5.05L7.44,6.05C7.96,5.66 8.5,5.32 9.13,5.07L9.5,2.42C9.54,2.18 9.75,2 10,2H14C14.25,2 14.46,2.18 14.5,2.42L14.87,5.07C15.5,5.32 16.04,5.66 16.56,6.05L19.05,5.05C19.27,4.96 19.54,5.05 19.66,5.27L21.66,8.73C21.79,8.95 21.73,9.22 21.54,9.37L19.43,11L19.5,12L19.43,13L21.54,14.63C21.73,14.78 21.79,15.05 21.66,15.27L19.66,18.73C19.54,18.95 19.27,19.04 19.05,18.95L16.56,17.95C16.04,18.34 15.5,18.68 14.87,18.93L14.5,21.58C14.46,21.82 14.25,22 14,22H10M11.25,4L10.88,6.61C9.68,6.86 8.62,7.5 7.85,8.39L5.44,7.35L4.69,8.65L6.8,10.2C6.4,11.37 6.4,12.64 6.8,13.8L4.68,15.36L5.43,16.66L7.86,15.62C8.63,16.5 9.68,17.14 10.87,17.38L11.24,20H12.76L13.13,17.39C14.32,17.14 15.37,16.5 16.14,15.62L18.57,16.66L19.32,15.36L17.2,13.81C17.6,12.64 17.6,11.37 17.2,10.2L19.31,8.65L18.56,7.35L16.15,8.39C15.38,7.5 14.32,6.86 13.12,6.62L12.75,4H11.25Z">
+                                                        </path>
+                                                    </svg><span class="text-sm">Settings</span></button><!----></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:hidden overflow-x-auto h-[40px] border-b">
+                                    <div class="h-[39px] border-l-2 md:hidden flex items-center text-gray-400 pl-2"><svg
+                                            data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24" class="mr-2"
+                                            style="--sx: 1; --sy: 1; --r: 0deg;">
+                                            <path data-v-76aa6b74=""
+                                                d="M4,3H5V5H3V4A1,1 0 0,1 4,3M20,3A1,1 0 0,1 21,4V5H19V3H20M15,5V3H17V5H15M11,5V3H13V5H11M7,5V3H9V5H7M21,20A1,1 0 0,1 20,21H19V19H21V20M15,21V19H17V21H15M11,21V19H13V21H11M7,21V19H9V21H7M4,21A1,1 0 0,1 3,20V19H5V21H4M3,15H5V17H3V15M21,15V17H19V15H21M3,11H5V13H3V11M21,11V13H19V11H21M3,7H5V9H3V7M21,7V9H19V7H21Z">
+                                            </path>
+                                        </svg><span class="text-sm">Select an object to control.</span></div>
+                                </div>
+                                <div class="editor-root flex-1 h-1 w-full relative overflow-hidden transparent-pattern">
+                                    <div
+                                        class="btn-builder w-4 h-4 rounded-none p-0 absolute top-0 left-0 flex justify-center items-center z-40 pointer-events-none">
+                                    </div>
+                                    <div class="absolute bg-builder top-0 left-0 h-4 right-0 z-20 pointer-events-none">
+                                        <div class="w-full flex h-full border-b items-center justify-center relative">
+                                            <!---->
+                                            <div class="border-r h-full shrink-0 flex after:content-[var(--width)] after:text-3xs after:bg-builder after:absolute relative after:left-[calc(100%+2px)] after:w-full after:pl-1 after:text-inherit"
+                                                style="width: 373.8px; --width: &quot;22 in&quot;; font-size: 11px; line-height: 10px; transform: translate(0px);">
+                                                <div class="border-l h-full flex flex-shrink-0 items-end justify-evenly pl-px text-inherit relative"
+                                                    style="width: 168.5px;">
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!----><small
+                                                        class="absolute top-px left-px bg-builder z-50">0</small>
+                                                </div>
+                                                <div class="border-l h-full flex flex-shrink-0 items-end justify-evenly pl-px text-inherit relative"
+                                                    style="width: 168.5px;">
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!----><small
+                                                        class="absolute top-px left-px bg-builder z-50">10</small>
+                                                </div>
+                                                <div class="border-l h-full flex flex-shrink-0 items-end justify-evenly pl-px text-inherit relative"
+                                                    style="width: 168.5px;">
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!---->
+                                                    <div class="h-1.5 w-px bg-gray-400"></div><!----><small
+                                                        class="absolute top-px left-px bg-builder z-50">20</small>
+                                                </div>
+                                            </div><!---->
+                                        </div>
+                                    </div>
+                                    <div class="absolute bg-builder top-0 left-0 w-4 bottom-0 z-20 pointer-events-none">
+                                        <div class="w-full h-full border-r flex items-center relative"><!---->
+                                            <div class="border-b w-full flex shrink-0 flex-col after:content-[var(--height)] after:text-3xs after:w-full after:absolute relative after:top-[calc(100%+2px)] after:h-full after:pt-1 after:text-inherit after:vertical-lr"
+                                                style="height: 407.6px; --height: &quot;24 in&quot;; font-size: 11px; line-height: 10px; transform: translate(0px, 0px);">
+                                                <div class="border-t w-full flex flex-shrink-0 flex-col justify-evenly items-end pt-px text-inherit relative"
+                                                    style="height: 168.5px;">
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!----><small
+                                                        class="absolute top-1 bg-builder left-px vertical-lr">0</small>
+                                                </div>
+                                                <div class="border-t w-full flex flex-shrink-0 flex-col justify-evenly items-end pt-px text-inherit relative"
+                                                    style="height: 168.5px;">
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!----><small
+                                                        class="absolute top-1 bg-builder left-px vertical-lr">10</small>
+                                                </div>
+                                                <div class="border-t w-full flex flex-shrink-0 flex-col justify-evenly items-end pt-px text-inherit relative"
+                                                    style="height: 168.5px;">
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!---->
+                                                    <div class="w-1.5 h-px bg-gray-400"></div><!----><small
+                                                        class="absolute top-1 bg-builder left-px vertical-lr">20</small>
+                                                </div>
+                                            </div><!---->
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="absolute left-0 bottom-0 h-4 right-0 z-20 bg-builder border-t flex justify-center touch-none">
+                                        <div class="btn-builder justify-between rounded-full px-0 w-48 cursor-pointer hover:bg-primary text-white user-select-none"
+                                            style="transform: translate(0px, 0px);"><svg data-v-76aa6b74="" width="18"
+                                                height="18" viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z">
+                                                </path>
+                                            </svg><svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24"
+                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z">
+                                                </path>
+                                            </svg></div>
+                                    </div>
+                                    <div
+                                        class="absolute right-0 h-full w-4 bottom-0 z-40 cursor-pointer bg-builder border-l flex flex-col justify-center touch-none">
+                                        <div class="btn-builder px-0 py-0 flex-col justify-between rounded-full h-48 hover:bg-primary text-white user-select-none"
+                                            style="transform: translate(0px, 0px);"><svg data-v-76aa6b74="" width="18"
+                                                height="18" viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z">
+                                                </path>
+                                            </svg><svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24"
+                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z">
+                                                </path>
+                                            </svg></div>
+                                    </div>
+                                    <div
+                                        class="absolute w-max top-[20px] left-[20px] z-30 flex flex-col min-w-[150px] font-thin text-xs pointer-events-none">
+                                        <!---->
+                                        <div
+                                            class="max-sm:hidden text-xs space-y-0.5 py-1 px-2 w-full bg-builder rounded border">
+                                            <label class="flex items-center pointer-events-auto"><input type="checkbox"
+                                                    class="mr-2 w-4 h-4 text-blue-600 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-1"><span>Show
+                                                    Overlapping Lines</span></label>
+                                        </div>
+                                        <div
+                                            class="max-sm:hidden text-xs space-y-0.5 py-1 px-2 w-full bg-builder rounded border mt-2">
+                                            <label class="flex items-center pointer-events-auto"><input type="checkbox"
+                                                    class="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-1"><span>Show
+                                                    Resolution Lines</span></label>
+                                            <div class="pt-2 pointer-events-none">
+                                                <div class="flex items-center"><span
+                                                        class="w-3 h-3 border border-gray-100 bg-green-500 mr-1"></span><span>Optimal
+                                                        Resolution &gt;= 300 dpi</span></div>
+                                                <div class="flex items-center"><span
+                                                        class="w-3 h-3 border border-gray-100 bg-orange-500 mr-1"></span><span>Good
+                                                        Resolution &gt;= 150 dpi</span></div>
+                                                <div class="flex items-center"><span
+                                                        class="w-3 h-3 border border-gray-100 bg-red-500 mr-1"></span><span>Bad
+                                                        Resolution &gt;= 72 dpi</span></div>
+                                                <div class="flex items-center"><span
+                                                        class="w-3 h-3 border border-gray-100 bg-black mr-1"></span><span>Terrible
+                                                        Resolution &lt; 72 dpi</span></div>
+                                                <div class="flex items-center"><span
+                                                        class="w-3 h-3 border border-gray-100 bg-blue-600 mr-1"></span><span>Overlapping
+                                                        images</span></div>
+                                            </div>
+                                        </div><!---->
+                                        <div
+                                            class="py-1 max-sm:hidden object-info-container px-2 w-full bg-builder rounded border mt-1 pointer-events-none">
+                                            <div class="flex items-center"><span class="w-20">Left</span><span
+                                                    class="max-w-max left"><span>3.97</span> in</span></div>
+                                            <div class="flex items-center"><span class="w-20">Top</span><span
+                                                    class="max-w-max top"><span>7.13</span> in</span></div>
+                                            <div class="flex items-center"><span class="w-20">Width</span><span
+                                                    class="max-w-max width"><span>11.29</span> in</span></div>
+                                            <div class="flex items-center"><span class="w-20">Height</span><span
+                                                    class="max-w-max height">9.03 in</span></div><!---->
+                                            <div class="flex items-center"><span class="w-20">Resolution</span><span
+                                                    class="max-w-max">300 dpi</span></div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="absolute bg-builder border py-2 w-[290px] top-14 z-30 flex flex-col min-w-[150px] p-2 transition-all font-thin bottom-5 right-5">
+                                        <div
+                                            class="absolute w-5 h-12 bg-builder border border-r-0 rounded rounded-r-none right-full top-[-1px] cursor-pointer flex items-center justify-center">
+                                            <div class="transition-all rotate-180"><svg data-v-76aa6b74="" width="20"
+                                                    height="20" viewBox="0 0 24 24" class="shrink-0"
+                                                    style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                    <path data-v-76aa6b74=""
+                                                        d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z">
+                                                    </path>
+                                                </svg></div>
+                                        </div>
+                                        <div
+                                            class="w-full h-full overflow-y-auto tiny-scroll-bar text-xs space-y-2 pb-20">
+                                            <div class="font-bold">(1) &nbsp; Active Gang Sheets</div>
+                                            <div
+                                                class="bg-gray-100 rounded cursor-pointer border relative p-2 border-green-500">
+                                                <!---->
+                                                <div class="flex items-center px-1 text-gray-500 font-bold"><svg
+                                                        data-v-76aa6b74="" width="16" height="16" viewBox="0 0 24 24"
+                                                        class="mr-1" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                        <path data-v-76aa6b74=""
+                                                            d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"></path>
+                                                    </svg><span class="text-2xs pt-0.5">22 in X 24 in (2 ft) /
+                                                        Standard</span></div>
+                                                <div class="flex">
+                                                    <div contenteditable="false" tabindex="0" class="p-1 flex-1">New
+                                                        Gang Sheet</div>
+                                                    <div class="pt-1.5"><svg data-v-76aa6b74="" width="16" height="16"
+                                                            viewBox="0 0 24 24" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                            <path data-v-76aa6b74=""
+                                                                d="M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z">
+                                                            </path>
+                                                        </svg></div>
+                                                </div><small class="my-1 px-1 font-bold text-gray-500">0 Images</small>
+                                                <div class="flex justify-between items-center px-1 mt-2 h-7">
+                                                    <div class="flex items-center space-x-1"><span>Qty:</span>
+                                                        <div class="bg-white h-6 w-16 border rounded px-1"><input
+                                                                type="number" step="1" min="1"
+                                                                class="w-full h-full border-0 !text-xs block pr-0 pl-1 py-0 placeholder:text-gray-400 focus:ring-0">
+                                                        </div><!---->
+                                                    </div><!---->
+                                                </div>
+                                            </div>
+                                            <div class="!mt-10 space-y-2 text-sm">
+                                                <div
+                                                    class="flex items-center cursor-pointer hover:text-green-600 hover:underline">
+                                                    <svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24"
+                                                        class="shrink-0 mr-1" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                        <path data-v-76aa6b74=""
+                                                            d="M21 13.34C20.37 13.12 19.7 13 19 13V5H5V18.26L6 17.6L9 19.6L12 17.6L13.04 18.29C13 18.5 13 18.76 13 19C13 19.65 13.1 20.28 13.3 20.86L12 20L9 22L6 20L3 22V3H21V13.34M18 15V18H15V20H18V23H20V20H23V18H20V15H18Z">
+                                                        </path>
+                                                    </svg> Add new design
+                                                </div>
+                                                <div
+                                                    class="flex items-center cursor-pointer hover:text-green-600 hover:underline">
+                                                    <svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24"
+                                                        class="shrink-0 mr-1" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                        <path data-v-76aa6b74=""
+                                                            d="M21 13.34C20.37 13.12 19.7 13 19 13V5H5V18.26L6 17.6L9 19.6L12 17.6L13.04 18.29C13 18.5 13 18.76 13 19C13 19.65 13.1 20.28 13.3 20.86L12 20L9 22L6 20L3 22V3H21V13.34M17 9V7H7V9H17M15 13V11H7V13H15M18 15V18H15V20H18V23H20V20H23V18H20V15H18Z">
+                                                        </path>
+                                                    </svg> Open from previous designs
+                                                </div>
+                                                <div
+                                                    class="flex items-center cursor-pointer hover:text-green-600 hover:underline">
+                                                    <svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24"
+                                                        class="shrink-0 mr-1" style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                        <path data-v-76aa6b74=""
+                                                            d="M4,2C2.89,2 2,2.89 2,4V14H4V4H14V2H4M8,6C6.89,6 6,6.89 6,8V18H8V8H18V6H8M12,10C10.89,10 10,10.89 10,12V20C10,21.11 10.89,22 12,22H20C21.11,22 22,21.11 22,20V12C22,10.89 21.11,10 20,10H12Z">
+                                                        </path>
+                                                    </svg> Auto Build
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="absolute bottom-0 left-0 w-[286px] p-2 text-xs bg-builder md:hidden">
+                                            Powered by <a href="http://www.thedripapps.com" target="_blank"
+                                                class="text-blue-500">Drip Apps</a></div>
+                                    </div>
+                                    <div
+                                        class="absolute w-max top-[24px] flex items-center right-[20px] z-30 bg-builder rounded max-sm:text-xs">
+                                        <div title="Fit to screen"
+                                            class="btn-builder max-sm:rounded-sm rounded mr-2 py-0.5 px-1 cursor-pointer">
+                                            <svg data-v-76aa6b74="" width="16" height="16" viewBox="0 0 24 24"
+                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M16 10V14H8V10H16M18 8H6V16H18V8Z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <div
+                                            class="max-md:hidden btn-builder rounded mr-4 py-px px-2 cursor-pointer text-xs">
+                                            <span title="reset editor view">100%</span>
+                                        </div>
+                                        <div
+                                            class="max-sm:w-5 max-sm:h-5 w-6 h-[22px] bg-builder border rounded flex items-center justify-center cursor-pointer">
+                                            <svg data-v-76aa6b74="" width="16" height="16" viewBox="0 0 24 24"
+                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M15.5,14H14.71L14.43,13.73C15.41,12.59 16,11.11 16,9.5A6.5,6.5 0 0,0 9.5,3A6.5,6.5 0 0,0 3,9.5A6.5,6.5 0 0,0 9.5,16C11.11,16 12.59,15.41 13.73,14.43L14,14.71V15.5L19,20.5L20.5,19L15.5,14M9.5,14C7,14 5,12 5,9.5C5,7 7,5 9.5,5C12,5 14,7 14,9.5C14,12 12,14 9.5,14M7,9H12V10H7V9Z">
+                                                </path>
+                                            </svg>
+                                        </div><span class="px-1 w-14 text-center text-xs">5.63%</span>
+                                        <div
+                                            class="max-sm:w-5 max-sm:h-5 w-6 h-[22px] bg-builder border rounded flex items-center justify-center cursor-pointer">
+                                            <svg data-v-76aa6b74="" width="16" height="16" viewBox="0 0 24 24"
+                                                style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                <path data-v-76aa6b74=""
+                                                    d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14M12,10H10V12H9V10H7V9H9V7H10V9H12V10Z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="editor-wrap w-full h-full relative">
+                                        <div class="editor-bound relative"
+                                            style="width: 373.8px; height: 407.6px; transform: translate(0px, 0px); --border-width: 1px; --border-color: #2590c0;">
+                                        </div>
+                                        <div
+                                            class="flex items-center justify-center absolute left-0 top-0 w-full h-full">
+                                            <canvas class="canvasEditor" id="canvasEditor"></canvas>
+                                        </div>
+                                        <div class="snap-line-container absolute pointer-events-none"
+                                            style="width: 374px; height: 408px; transform: translate(0px, 0px);"><!---->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!---->
+                        </div>
+                    </div>
+                    <!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+                    <div class="fixed inset-0 z-50 modal d-none" id="build-gang-sheet-modal">
+                        <div
+                            class="flex w-full items-center justify-center h-full max-xs:pt-0 max-xs:px-0 max-xs:pb-0 text-center sm:block sm:p-0">
+                            <div class="">
+                                <div class="bg-black bg-opacity-50 w-full h-full absolute inset-0"></div>
+                            </div>
+                            <div class="h-full w-full">
+                                <div
+                                    class="null inline-block align-bottom transform transition-all h-full max-sm:w-full max-xs:py-0 sm:py-4 lg:py-8 sm:align-middle sm:w-full">
+                                    <div class="flex w-full h-full justify-center items-center">
+                                        <div class="flex flex-col bg-builder border sm:rounded overflow-hidden w-full mx-auto max-sm:h-full"
+                                            style="max-width: 675px;">
+                                            <div class="flex justify-between relative px-4 pt-2">
+                                                <h1 class="text-xl font-bold mb-3">Welcome to Build a Gang Sheet</h1>
+                                                <div class="absolute right-[14px] top-3 text-3xl cursor-pointer window-close"
+                                                    data-target="build-gang-sheet-modal">
+                                                    <svg data-v-76aa6b74="" width="18" height="18" viewBox="0 0 24 24"
+                                                        style="--sx: 1; --sy: 1; --r: 0deg;">
+                                                        <path data-v-76aa6b74=""
+                                                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="p-5">
+                                                <div class="text-left">
+                                                    <div class="grid grid-cols-2 gap-4 md:grid-cols-3"
+                                                        id="auto-build-template">
+                                                        <div class="flex flex-col cursor-pointer group">
+                                                            <div
+                                                                class="aspect-square border rounded bg-gray-200 overflow-hidden">
+                                                                <div class="relative w-full h-full"><img
+                                                                        src="https://gangsheet.nyc3.digitaloceanspaces.com/production/uploads/215616bb-49cb-498f-be24-90aafda413db.png"
+                                                                        class="w-full h-full object-contain"
+                                                                        draggable="true" alt="Image"><!----></div>
+                                                            </div>
+                                                            <div class="mt-1">
+                                                                <div class="w-full group-hover:-mt-1 transition-all">
+                                                                    Auto Build - Upload Multiple Images at Once</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col cursor-pointer group">
+                                                            <div
+                                                                class="aspect-square border rounded bg-gray-200 overflow-hidden">
+                                                                <div class="relative w-full h-full"><img
+                                                                        src="https://gangsheet.nyc3.digitaloceanspaces.com/production/uploads/b27aa3b7-d014-42e0-a7dc-49ccd892600c.png"
+                                                                        class="w-full h-full object-contain"
+                                                                        draggable="true" alt="Image"><!----></div>
+                                                            </div>
+                                                            <div class="mt-1">
+                                                                <div class="w-full group-hover:-mt-1 transition-all">
+                                                                    Start New</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col cursor-pointer group">
+                                                            <div
+                                                                class="aspect-square border rounded bg-gray-200 overflow-hidden">
+                                                                <div class="relative w-full h-full"><img
+                                                                        src="https://gangsheet.nyc3.digitaloceanspaces.com/production/uploads/47470d38-8d80-4428-b03f-ba37298ca265.png"
+                                                                        class="w-full h-full object-contain"
+                                                                        draggable="true" alt="Image"><!----></div>
+                                                            </div>
+                                                            <div class="mt-1">
+                                                                <div class="w-full group-hover:-mt-1 transition-all">
+                                                                    Edit Previous Order</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!---->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!----><!----><!----><!---->
+                </div>
+            </div>
+            <div class="v-tour"><!----></div>
+        </div>
+    </div>
+    <div style="display: none!important;">
+        <script src="//code.tidio.co/giz4hccib1nvtgjuo59qulv81vuckpqh.js" async=""></script>
+    </div>
+    <script>
+        (function () {
+            function onTidioChatApiReady() {
+                window.tidioChatApi.hide();
+                window.tidioChatApi.on('close', function () {
+                    window.tidioChatApi.hide();
+                });
+            }
+
+            if (window.tidioChatApi) {
+                window.tidioChatApi.on('ready', onTidioChatApiReady);
+            } else {
+                document.addEventListener('tidioChat-ready', onTidioChatApiReady);
+            }
+        })();
+    </script>
+
+
+    <div id="loom-companion-mv3" ext-id="liecbddmkiiihnedobmlmillhodjkdmb">
+        <section id="shadow-host-companion"></section>
+    </div><iframe id="tidio-chat-code" title="Tidio Chat code" style="display: none;"></iframe>
+    <div id="tidio-chat"></div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.min.js"></script>
+    <script src="./js/fabric.min.js"></script>
+    <script src="./js/functions.js"></script>
+    <script src="./js/canvas-aspect-ratio.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/editor.js"></script>
+    <!-- <script src="./js/intelligent-distribution.js"></script> -->
+</body>
+
+</html>

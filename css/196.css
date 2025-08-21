@@ -1,0 +1,531 @@
+@font-face {
+    font-family: a Attack Graffiti;
+    src: url('../Attack Graffiti.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: a Attack Graffiti;
+    src: url('../Attack Graffiti.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Academy;
+    src: url('../Academy Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Alameda Script PERSONAL USE;
+    src: url('../Alameda Script PERSONAL USE Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Alfa Slab One;
+    src: url('../Alfa Slab One Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Amarillo;
+    src: url('../Amarillo.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Angelwine;
+    src: url('../Angelwine.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Arial MT Std;
+    src: url('../ArialMTStd.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Arial Narrow;
+    src: url('../Arial Narrow.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Arial Unicode MS;
+    src: url('../Arial Unicode MS.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Berlin Sans FB;
+    src: url('../Berlin Sans FB.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Baby Brother;
+    src: url('../BFC Baby Brother.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Basically;
+    src: url('../BFC Basically.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Beach Wishes;
+    src: url('../BFC Beach Wishes.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Blissful Brush;
+    src: url('../BFC Blissful Brush.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Candy Dreams;
+    src: url('../BFC Candy Dreams.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Cornbread Snacks;
+    src: url('../BFC Cornbread Snacks.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Dancer Forever;
+    src: url('../BFC Dancer Forever.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Friday Jeans;
+    src: url('../BFC Friday Jeans.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Holiday GiftTags;
+    src: url('../BFC Holiday GiftTags.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Magic Marker;
+    src: url('../BFC Magic Marker.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Mainstay;
+    src: url('../BFC Mainstay.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Marker Print;
+    src: url('../BFC Marker Print.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Nursery Rhymes;
+    src: url('../BFC Nursery Rhymes.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Orange Markers;
+    src: url('../BFC Orange Markers.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Poetry Book;
+    src: url('../BFC Poetry Book.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Pumpkin Harvest;
+    src: url('../BFC Pumpkin Harvest.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC SeashellNecklace;
+    src: url('../BFC SeashellNecklace.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Simple Sarah;
+    src: url('../BFC Simple Sarah.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Slushy Snow;
+    src: url('../BFC Slushy Snow.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: BFC Snowy Sidewalks;
+    src: url('../BFC Snowy Sidewalks.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Billion Dreams;
+    src: url('../BillionDreams.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Blacksword;
+    src: url('../Blacksword.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Blank Note;
+    src: url('../Blank Note Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Bricklane;
+    src: url('../Bricklane-Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Candy Pop;
+    src: url('../Candy Pop.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: CLN-Firecrackers;
+    src: url('../CLN-Firecrackers.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Courtside;
+    src: url('../Courtside Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Crush;
+    src: url('../Crush Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: CrushOutline;
+    src: url('../CrushOutline Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Dark College;
+    src: url('../Dark College.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Dezire Stacked;
+    src: url('../Dezire Stacked Bold.ttf');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Gabuek Script;
+    src: url('../Gabuek Script.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Gill Sans MT;
+    src: url('../Gill Sans MT.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url('../Gotham-Book.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Great Vibes;
+    src: url('../Great Vibes Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Groovy Beach;
+    src: url('../Groovy Beach Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Groovy Beach Extrude;
+    src: url('../Groovy Beach Extrude.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Haglos;
+    src: url('../Haglos.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Hayward;
+    src: url('../Hayward.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Herosita;
+    src: url('../Herosita.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Hey Sweetie-01;
+    src: url('../Hey Sweetie-01 Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Honey Bee;
+    src: url('../Honey Bee Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Honeybabe;
+    src: url('../Honeybabe Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: ITC Avant Garde Std Md;
+    src: url('../ITCAvantGardeStd-Md.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: JT Distressed;
+    src: url('../JT Distressed.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: KAWhatever;
+    src: url('../KAWhatever.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Lovebird;
+    src: url('../Lovebird.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Loveheart-01;
+    src: url('../Loveheart-01 Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Lovevibes;
+    src: url('../Lovevibes Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Magic Kiss-01;
+    src: url('../Magic Kiss-01.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: mama;
+    src: url('../mama.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Mexican fiesta;
+    src: url('../Mexican fiesta.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Mexican fiesta;
+    src: url('../Mexican fiesta Bold.ttf');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Myriad Pro;
+    src: url('../MyriadPro-Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: NAFishface Medium;
+    src: url('../NAFishface Medium.ttf');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Otherway;
+    src: url('../Otherway.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Pink Daisy;
+    src: url('../Pink Daisy Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Pop Warner;
+    src: url('../Pop Warner.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Ripple Effects;
+    src: url('../Ripple Effects.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Sunny Spells Basic;
+    src: url('../Sunny Spells Basic Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Taco Box;
+    src: url('../Taco Box.TTF');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Twix;
+    src: url('../Twix.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: TypoSlab Irregular Demo;
+    src: url('../TypoSlab Irregular Demo.otf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: VanillaCream;
+    src: url('../VanillaCream Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Varsity Regular;
+    src: url('../Varsity Regular.ttf');
+    font-style: normal;
+    font-weight: 900;
+}

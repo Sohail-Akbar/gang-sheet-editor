@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to SVG Converter</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>PDF to SVG Converter</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="pdfFile" accept=".pdf" required>
+        <button type="submit">Convert</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('#uploadForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(this);
+                $.ajax({
+                    url: 'test.php', // Adjust the path if needed
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            $('#result').html(`<p>${response.message}</p><p>Output SVG: <a href="${response.output}" target="_blank">${response.output}</a></p>`);
+                        } else {
+                            $('#result').html(`<p>Error: ${response.message}</p>`);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $('#result').html(`<p>Error: ${textStatus} - ${errorThrown}</p>`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
